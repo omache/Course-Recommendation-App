@@ -1,5 +1,5 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   BrowserRouter,
   Routes,
@@ -7,15 +7,15 @@ import {
   Outlet,
   useLocation,
   Navigate,
-} from 'react-router-dom';
-import styled from 'styled-components';
-import { COLORS } from './atoms';
-import { SideBar } from './components';
-import { PageHeader } from './components/PageHeader';
-import { routes } from './config';
-import { APP_NAME, SIDE_BAR } from './constants';
-import { useCurrentUser } from './hooks';
-import { Login, NotFound } from './pages';
+} from "react-router-dom";
+import styled from "styled-components";
+import { COLORS } from "./atoms";
+import { SideBar } from "./components";
+import { PageHeader } from "./components/PageHeader";
+import { routes } from "./config";
+import { APP_NAME, SIDE_BAR } from "./constants";
+import { useCurrentUser } from "./hooks";
+import { Login, NotFound, Signup } from "./pages";
 
 const AppMainLayout: React.FC<{ username: string }> = ({ username }) => {
   const location = useLocation();
@@ -26,16 +26,18 @@ const AppMainLayout: React.FC<{ username: string }> = ({ username }) => {
       <StyledSideBar
         navItems={SIDE_BAR}
         activeNavIndex={SIDE_BAR.findIndex(
-          e => e?.link && path.includes(e.link)
+          (e) => e?.link && path.includes(e.link)
         )}
       />
       <Main>
         <PageHeader
           title={t(
-            SIDE_BAR.find(e => e?.link && path.includes(e.link))?.title || ''
+            SIDE_BAR.find((e) => e?.link && path.includes(e.link))?.title || ""
           )}
-          username={username || 'user'}
-          subTitle={t('With') + ' ' + APP_NAME + ' - ' + t('LearnMoreEffectively')}
+          username={username || "user"}
+          subTitle={
+            t("With") + " " + APP_NAME + " - " + t("LearnMoreEffectively")
+          }
         />
         <Outlet />
       </Main>
@@ -54,12 +56,12 @@ const ProtectedRoute = () => {
 };
 
 export const App: React.FC<{}> = () => {
-  const loginRoute = routes.find(route => route.path === 'login');
-  const mainRoutes = routes.filter(route => route.path !== 'login');
+  const loginRoute = routes.find((route) => route.path === "login");
+  const mainRoutes = routes.filter((route) => route.path !== "login");
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />}>
+        <Route path="/" element={<Signup />}>
           <Route path={loginRoute?.path} element={loginRoute?.component} />
         </Route>
         <Route path="user" element={<ProtectedRoute />}>

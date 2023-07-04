@@ -13,6 +13,16 @@ export interface ILogin {
   password: string;
 }
 
+export interface ISignup {
+  fullName: string;
+  dateOfBirth: string;
+  email: string;
+  phoneNumber: string;
+  className: string;
+  username: string;
+  password: string;
+}
+
 export interface IOrientation {
   id: string;
   orientationName: string;

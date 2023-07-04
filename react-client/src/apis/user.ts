@@ -1,9 +1,13 @@
-import { ILogin, IUpdateRequest } from '../interfaces';
+import { ILogin, IUpdateRequest, ISignup } from '../interfaces';
 import { authClient, axiosClient } from './axiosClient';
 
 export const userApi = {
   login: async (data: ILogin) => {
     return axiosClient.post('/login', data).then(res => res.data);
+  },
+
+  signup: async (data: ISignup) => {
+    return axiosClient.post('/signup', data).then(res => res.data);
   },
 
   logout: async () => {
@@ -20,5 +24,5 @@ export const userApi = {
 
   updateProfile: async (data: IUpdateRequest) => {
     return authClient.patch('/profile', data).then(res => res.data);
-  }, 
+  },
 };
