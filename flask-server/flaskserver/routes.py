@@ -29,6 +29,34 @@ def login():
 
     return {"msg": "username or password is wrong"}, 400
 
+@app.route('/signup', methods=['POST'])
+def signup():
+    fullName = request.json.get("fullName", None)
+    dateOfBirth = request.json.get("dateOfBirth", None)
+    email = request.json.get("email", None)
+    phoneNumber = request.json.get("phoneNumber", None)
+    className = request.json.get("className", None)
+
+    # Check if email already exists
+    if Account.query.filter_by(email=email).first():
+        return {"msg": "Email already exists"}, 400
+
+    # Create a new user account
+    new_account = Account(
+        fullName=fullName,
+        dateOfBirth=datetime.strptime(dateOfBirth, "%Y-%m-%d"),
+        email=email,
+        phoneNumber=phoneNumber,
+        className=className
+    )
+    db.session.add(new_account)
+    db.session.commit()
+
+    response = jsonify({"msg": "Signup successful"})
+    access_token = create_access_token(identity=new_account.userId)
+    set_access_cookies(response, access_token)
+    return {"msg": "Signup successful", "token": access_token}, 200
+
 @app.route("/logout", methods=['POST'])
 def logout():
     response = jsonify({"msg": "logout successful"})
