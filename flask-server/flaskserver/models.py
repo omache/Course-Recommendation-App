@@ -3,12 +3,13 @@ from marshmallow import post_load, fields
 
 class Student(db.Model):
     __tablename__ = 'student'
-    id = db.Column(db.String(8), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     fullName = db.Column(db.String(100))
     dateOfBirth = db.Column(db.String(50))
     email = db.Column(db.String(50))
     phoneNumber = db.Column(db.String(10))
     className = db.Column(db.String(10))
+    
 
     def __init__(self, fullName=None, dateOfBirth=None, email=None, phoneNumber=None, className=None):
         if fullName is not None:
@@ -21,6 +22,8 @@ class Student(db.Model):
             self.phoneNumber = phoneNumber
         if className is not None:
             self.className = className
+
+ 
 
 class Account(db.Model):
     __tablename__ = 'account'
