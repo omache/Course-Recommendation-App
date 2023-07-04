@@ -1,0 +1,4 @@
+SECRET_KEY="hardsecretkey"
+SQLALCHEMY_DATABASE_URI="mysql://root:<password>@localhost/course_recommend"
+SQLALCHEMY_TRACK_MODIFICATIONS=False
+ORIGINS="http://localhost:3000"
